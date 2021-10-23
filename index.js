@@ -3,6 +3,7 @@
 const express = require("express");
 const session = require("express-session");
 const handlebars = require("express-handlebars");
+const minimist = require("minimist");
 require("dotenv").config();
 const passport = require("./src/utils/passport");
 const socketConfig = require("./src/utils/socket");
@@ -16,7 +17,16 @@ const io = require("socket.io")(httpServer, {
 });
 require("./DB/mongoConnection");
 
-const PORT = process.env.PORT || 4000;
+const minimistOptions = {
+  alias: {
+    p: "port"
+  },
+  default: {
+    port: 8080
+  }
+};
+
+const { port } = minimist(process.argv.slice(2), minimistOptions);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -52,6 +62,6 @@ socketConfig(io);
 
 app.use("/", router);
 
-httpServer.listen(PORT, () =>
-  console.log("Servidor activo en puerto: " + PORT)
+httpServer.listen(port, () =>
+  console.log("Servidor activo en puerto: " + port)
 );
