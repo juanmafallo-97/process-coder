@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const apiRouter = require("./api/ApiRouter");
-const authRouter = require("./auth/AuthRouter");
+const authRouter = require("./AuthRouter");
+const infoRouter = require("./InfoRouter");
 
 router.get("/", (req, res) => {
   if (req.isAuthenticated()) {
@@ -15,5 +16,6 @@ router.get("/", (req, res) => {
 
 router.use("/api", apiRouter);
 router.use("/auth", authRouter);
+router.use("/info", infoRouter);
 
 module.exports = router;
