@@ -1,10 +1,12 @@
+require("dotenv").config();
+
 const config = {
   client: "mysql2",
   connection: {
-    host: "localhost",
-    user: "root",
+    host: process.env.MARIADB_HOST,
+    user: process.env.MARIADB_USER,
     password: "",
-    database: "productsdb"
+    database: process.env.MARIADB_DATABASE
   }
 };
 

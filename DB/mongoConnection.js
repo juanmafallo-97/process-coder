@@ -1,8 +1,8 @@
 //Conexión a la base de datos para mantener usuarios
-
+require("dotenv").config();
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://localhost:27017/passportlocal", {
+mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });

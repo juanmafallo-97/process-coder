@@ -1,7 +1,13 @@
 const minimist = require("minimist");
 
 const getInfo = (req, res) => {
-  const args = minimist(process.argv.slice(2));
+  const allArgs = minimist(process.argv.slice(2));
+  const args = allArgs._;
+  for (const arg in allArgs) {
+    if (arg !== "_") {
+      args.push(` ${arg}: ${allArgs[arg]}`);
+    }
+  }
   const os = process.platform;
   const nodeVersion = process.version;
   const memoryUsage = process.memoryUsage().rss;
@@ -18,6 +24,7 @@ const getInfo = (req, res) => {
     processId,
     workingDirectory
   });
+  console.log(args);
 };
 
 module.exports = { getInfo };
